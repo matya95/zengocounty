@@ -71,13 +71,24 @@ class CountyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $county = County::find($request->countyid);
-        $city = City::updateOrCreate(
-            ['id' => $id],
-            ['id' => $id, 'name' => $request->city]
 
-        );
+        if (!empty($request->name)) {
+            $county = County::find($request->countyid);
+            $city = City::updateOrCreate(
+                ['id' => $id],
+                ['id' => $id, 'name' => $request->name]
 
+            );
+            $message = [
+                'message' => 'You successfully updated the city name to ' . $request->name
+            ];
+            return response(json_encode($message));
+        } else {
+            $errors = [
+                'message' => 'You have to add a city name'
+            ];
+            return response(json_encode($errors));
+        }
 
     }
 
@@ -89,20 +100,33 @@ class CountyController extends Controller
      */
     public function destroy($id)
     {
-        City::destroy($id);
 
+        City::destroy($id);
+        $message = [
+            'message' => 'You successfully deleted the city'
+        ];
+        return response(json_encode($message));
     }
 
     public function insertcity(Request $request)
     {
+        if (!empty($request->name)) {
+            $counyid = $request->id;
+            $city = $request->name;
+            $count = County::find($counyid);
+            $cityy = new City();
+            $cityy->name = $city;
+            $count->hasCities()->save($cityy);
+            $message = [
+                'message' => 'You successfully created a city with the following name: ' . $city.' and id:'.$cityy->id
+            ];
+            return response(json_encode($message));
 
-        $counyid = $request->id;
-        $city = $request->city;
-        $count = County::find($counyid);
-        $cityy = new City();
-        $cityy->name = $city;
-        $count->hasCities()->save($cityy);
-
-
+        } else {
+            $errors = [
+                'message' => 'You have to add a city name'
+            ];
+            return response(json_encode($errors));
+        }
     }
 }

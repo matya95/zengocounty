@@ -11,26 +11,26 @@
 
                 </select>
                 <div class="create" v-if="selected==1">
-                    <div class="row">
+                    <div class="row mt-3">
                         <label for="createcity" class="col-3">Új Város</label> <input type="text"
                                                                                       class="form-control col-8"
                                                                                       id="createcity" name="createcity">
                     </div>
-                    <button v-on:click="insertcity">Felvesz</button>
+                    <button class="btn btn-primary" v-on:click="insertcity">Felvesz</button>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="cityrow rows" v-for="city in cities">
                     <div class="row">
                 <span v-bind:class="'col-md-12 city'+city.id" v-if="type!=city.id" v-bind:id="'city'+city.id"
                       v-on:click="change">{{ city.name }}</span>
-                        <input type="text" class="form-control col-3" v-if="type==city.id" v-bind:value="city.name"
+                        <input type="text" class="form-control col-4" v-if="type==city.id" v-bind:value="city.name"
                                v-bind:id="'input'+city.id">
                         <input type="hidden" v-bind:value="city.name" v-bind:id="'hidden'+city.id"/>
                         <div class="actions">
-                            <button v-if="type==city.id" v-bind:id="city.id" v-on:click="deletecity">Törlés</button>
-                            <button v-if="type==city.id" v-bind:id="city.id" v-on:click="updatecity">Módosítás</button>
-                            <button v-if="type==city.id" v-on:click="cancel">Mégsem</button>
+                            <button class="btn btn-danger ml-1" v-if="type==city.id" v-bind:id="city.id" v-on:click="deletecity">Törlés</button>
+                            <button class="btn btn-primary ml-1" v-if="type==city.id" v-bind:id="city.id" v-on:click="updatecity">Módosítás</button>
+                            <button class="btn btn-warning ml-1" v-if="type==city.id" v-on:click="cancel">Mégsem</button>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default {
         cancel: function (event) {
             this.$set(this.$data, 'type', 0);
         },
-       async getcities() {
+        async getcities() {
             this.$set(this.$data, 'selected', 1);
             let options = document.getElementsByClassName("city");
             let megye = document.getElementById("megyeselect");
@@ -98,7 +98,7 @@ export default {
             let megye = document.getElementById("megyeselect");
             let countyid = options[megye.selectedIndex - 1].id;
             axios.put('/api/county/' + id, {
-                city: szoveg,
+                name: szoveg,
                 countyid: countyid
 
             })
@@ -124,7 +124,7 @@ export default {
             let megye = document.getElementById("megyeselect");
             let countyid = options[megye.selectedIndex - 1].id;
             axios.post('/api/county/insertcity', {
-                city: value,
+                name: value,
                 id: countyid
 
             })

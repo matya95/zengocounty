@@ -1995,7 +1995,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 megye = document.getElementById("megyeselect");
                 countyid = options[megye.selectedIndex - 1].id;
                 axios.put('/api/county/' + id, {
-                  city: szoveg,
+                  name: szoveg,
                   countyid: countyid
                 });
 
@@ -2037,7 +2037,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 megye = document.getElementById("megyeselect");
                 countyid = options[megye.selectedIndex - 1].id;
                 axios.post('/api/county/insertcity', {
-                  city: value,
+                  name: value,
                   id: countyid
                 });
                 _context4.next = 7;
@@ -20419,16 +20419,21 @@ var render = function() {
           ? _c("div", { staticClass: "create" }, [
               _vm._m(0),
               _vm._v(" "),
-              _c("button", { on: { click: _vm.insertcity } }, [
-                _vm._v("Felvesz")
-              ])
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: { click: _vm.insertcity }
+                },
+                [_vm._v("Felvesz")]
+              )
             ])
           : _vm._e()
       ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-4" },
+        { staticClass: "col-md-6" },
         _vm._l(_vm.cities, function(city) {
           return _c("div", { staticClass: "cityrow rows" }, [
             _c("div", { staticClass: "row" }, [
@@ -20446,7 +20451,7 @@ var render = function() {
               _vm._v(" "),
               _vm.type == city.id
                 ? _c("input", {
-                    staticClass: "form-control col-3",
+                    staticClass: "form-control col-4",
                     attrs: { type: "text", id: "input" + city.id },
                     domProps: { value: city.name }
                   })
@@ -20461,7 +20466,11 @@ var render = function() {
                 _vm.type == city.id
                   ? _c(
                       "button",
-                      { attrs: { id: city.id }, on: { click: _vm.deletecity } },
+                      {
+                        staticClass: "btn btn-danger ml-1",
+                        attrs: { id: city.id },
+                        on: { click: _vm.deletecity }
+                      },
                       [_vm._v("Törlés")]
                     )
                   : _vm._e(),
@@ -20469,15 +20478,24 @@ var render = function() {
                 _vm.type == city.id
                   ? _c(
                       "button",
-                      { attrs: { id: city.id }, on: { click: _vm.updatecity } },
+                      {
+                        staticClass: "btn btn-primary ml-1",
+                        attrs: { id: city.id },
+                        on: { click: _vm.updatecity }
+                      },
                       [_vm._v("Módosítás")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.type == city.id
-                  ? _c("button", { on: { click: _vm.cancel } }, [
-                      _vm._v("Mégsem")
-                    ])
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-warning ml-1",
+                        on: { click: _vm.cancel }
+                      },
+                      [_vm._v("Mégsem")]
+                    )
                   : _vm._e()
               ])
             ])
@@ -20493,7 +20511,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
+    return _c("div", { staticClass: "row mt-3" }, [
       _c("label", { staticClass: "col-3", attrs: { for: "createcity" } }, [
         _vm._v("Új Város")
       ]),
