@@ -22,7 +22,7 @@
        <li>
            npm install
        </li>
-       <li>npm run watch</li>
+       <li>npm run dev</li>
        <li>php artisan serve</li>#so you can test it on localhost by http://127.0.0.1:8000/
     </ul>
     </div>
